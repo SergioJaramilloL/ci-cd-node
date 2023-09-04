@@ -23,6 +23,7 @@ jobs:
       # Paso 1: Descarga de dependencias
       - name: Checkout
         uses: actions/checkout@v3
+      # Paso 2: Instalar tar y gzip
       - name: Instalar tar y gzip
         run: sudo apt-get install tar gzip -y
       # Paso 2: Configurar Node.js
