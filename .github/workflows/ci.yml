@@ -1,0 +1,39 @@
+name: ci
+
+
+# Dispara el pipeline
+on:
+  # Activa el flujo de trabajo cada vez que se realiza un push en la rama main
+  push:
+    branches: ["main"]
+  # Activa el flujo de trabajo cada vez que se realiza un pull request en la rama main o develop
+  pull_request:
+    branches: ["main","develop"]
+
+  # Permite ejecutar el flujo de trabajo de forma manual
+  workflow_dispatch:
+
+jobs:
+    #Definir los jobs del test
+  test:
+    # Definir el sistema operativo
+    runs-on: ubuntu-latest
+    # Definir los pasos del job
+    steps:
+      # paso 1: Descargar dependencias
+      name: Checkout
+      uses: actions/checkout@v3
+      # paso 2: Confiurar entorno de node
+      name: Setup Node.js
+      uses: actions/setup-node@v3 
+      with:
+        node-version: "18"
+      # paso 3: Instalar dependencias
+      name: Install dependencies
+      run: npm ci
+      # paso 4: Ejecutar linter
+      name: Run Linter
+      run: npm run lint
+      # paso 5: Ejecutar test
+      name: Run tests
+      run: npm run test
